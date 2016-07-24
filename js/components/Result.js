@@ -1,29 +1,23 @@
 import React from 'react';
+import classNames from 'classnames';
+
+const liClasses = classNames([
+  'bg-white',
+  'hover-darken',
+  'border-0',
+  'border-1-bottom',
+  'border-solid',
+  'border-gray-lt',
+  'cursor-pointer',
+  'list-style-none',
+  'padding-2'
+]);
 
 const Result  = React.createClass({
   getInitialState() {
     return {
       isOpen: false,
-      amount: null
-
-    };
-  },
-
-  getDefaultProps() {
-    return {
-      style: {
-        li: {
-          border: 'solid lightgrey',
-          borderWidth: '1px 1px 0 0',
-          cursor: 'pointer',
-          listStyle: 'none',
-          padding: '10px'
-        },
-        p: {
-          margin: 0,
-          padding: 0
-        }
-      }
+      amount: ''
     };
   },
 
@@ -37,12 +31,12 @@ const Result  = React.createClass({
   handleSubmit(e) {
     e.preventDefault();
     this.props.addFoodToMeal({
-      id: Math.random(),
+      id: Math.floor(Math.random() * 10000000000),
       foodItem: this.props.result,
       amount: this.state.amount
     });
   },
-  
+
   handleButtonClick(e) {
     e.stopPropagation();
   },
@@ -82,23 +76,15 @@ const Result  = React.createClass({
 
   render() {
     const {
-      handleClick,
-      renderNutrients,
-      props: {
-        result: {
-          long_desc,
-          ndb_no
-        },
-        style: {
-          li: liStyle,
-          p: pStyle
-        }
-      }
-    } = this;
+      result: {
+        long_desc,
+        ndb_no
+      },
+    } = this.props;
 
     return (
-      <li onClick={handleClick} style={liStyle}>
-        <p style={pStyle}>
+      <li onClick={this.handleClick} className={liClasses}>
+        <p>
           {long_desc}
         </p>
         <br />
@@ -106,6 +92,7 @@ const Result  = React.createClass({
           Add&nbsp;
           <input
             ref="amountInput"
+            className="outline-none"
             value={this.state.amount}
             onChange={this.handleAmountChange}
             type="text"
@@ -118,7 +105,7 @@ const Result  = React.createClass({
         </form>
         <br />
         <ul>
-          {renderNutrients()}
+          {this.renderNutrients()}
         </ul>
         <span>
           +

@@ -1,28 +1,18 @@
 import React from 'react';
-import { UNITS, dailyRequirements } from '../modules/constants/constants';
+import { UNITS, dailyRequirements } from '../modules/constants';
 import convert from 'convert-units';
 
-const ulStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  listStyle: 'none',
-  padding: 0
-};
-
-const liStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  position: 'relative'
-};
-
 const DailyRequirements = React.createClass({
-  renderNutrientAmount(requiredNutrientNumber, requiredAmount, requiredUnit) {
+  renderNutrientAmount(nutrNo, amount, units) {
     const { totalNutrition } = this.props;
     if (totalNutrition.size) {
-      const amountOfDailyValue = (totalNutrition.get(requiredNutrientNumber) || 0) / requiredAmount;
-      // console.log(requiredNutrientNumber, requiredAmount, requiredUnit, totalNutrition.get(requiredNutrientNumber));
+      let amountOfDailyValue = (totalNutrition.get(nutrNo) || 0) / amount;
+      amountOfDailyValue = amountOfDailyValue > 100 ? 100 : amountOfDailyValue;
+      // console.log(nutrNo, amount, units, totalNutrition.get(nutrNo));
       return (
-        <div style={{height: '100%', width: `${amountOfDailyValue}%`, backgroundColor: '#000', position: 'absolute', left: 0, top: 0, opacity: 0.1}} />
+        <div
+          className="position-absolute position-left position-top opacity-1 bg-black height-100"
+          style={{width: `${amountOfDailyValue}%`}} />
       );
     }
   },
@@ -44,16 +34,16 @@ const DailyRequirements = React.createClass({
         units
       }) => {
         const amount = recommended || (max - min) / 2 || 0;
-        const key = nutrNo || name;
+        const key = nutrNo || name; // TODO: Use real IDs
         return (
-          <li key={key} style={liStyle}>
+          <li key={key} className="flex-row justify-space-between position-relative">
             <span>
               {name}
             </span>
             <span>
 
             </span>
-            <span style={{display: 'flex', justifyContent: 'center'}}>
+            <span className="flex-row justify-center">
               <span>
                 {amount}
               </span>
@@ -73,8 +63,10 @@ const DailyRequirements = React.createClass({
   render() {
     return (
       <div className="daily-requirements">
-        <h3>Recommended Daily Intakes</h3>
-        <ul style={ulStyle}>
+        <h3>
+          Recommended Daily Intakes
+        </h3>
+        <ul className="flex-column list-style-none padding-0">
           {this.renderRequirements()}
         </ul>
       </div>

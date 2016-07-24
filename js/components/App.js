@@ -3,7 +3,6 @@ import Input from './Input'
 import Results from './Results';
 import DailyRequirements from './DailyRequirements';
 import AddMeal from './AddMeal';
-
 import { searchFood, fetchNutrients } from '../modules/ajax/api-requests';
 
 const App  = React.createClass({
@@ -14,20 +13,6 @@ const App  = React.createClass({
       foodItems: [],
       totalNutrition: new Map()
     };
-  },
-
-  getDefaultProps() {
-    return {
-      style: {
-        alignItems: 'stretch',
-        alignSelf: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        width: '500px'
-      }
-    }
   },
 
   componentWillMount() {
@@ -95,7 +80,7 @@ const App  = React.createClass({
   removeFoodItem(itemIdToRemove) {
     this.setState({
       foodItems: this.state.foodItems.filter(foodItem => {
-        console.log(foodItem, itemIdToRemove);
+        return foodItem.id !== itemIdToRemove;
       })
     });
   },
@@ -106,50 +91,45 @@ const App  = React.createClass({
 
   render() {
     const {
-      addFoodToMeal,
-      getFoodNutrients,
-      postMeal,
-      removeFoodItem,
-      searchForFood,
-      updateSearchTerms,
-      props: {
-        style
-      },
-      state: {
-        searchTerms,
-        results,
-        foodItems,
-        totalNutrition
-      }
-    } = this;
+      searchTerms,
+      results,
+      foodItems,
+      totalNutrition
+    } = this.state;
+
+    // const totalNutrition = foodItem.foodItem.nutrients.reduce((totalNutrition, { nutr_no, nutr_val }) => {
+    //   const actualAmountOfNutrientInThisMuchFood = +nutr_val * (foodItem.amount / 100);
+    //
+    //   totalNutrition.set(nutr_no, (totalNutrition.get(nutr_no) || 0) + actualAmountOfNutrientInThisMuchFood);
+    //
+    //   return totalNutrition;
+    // }, this.state.totalNutrition);
 
     return (
-      <div style={{display: 'flex', justifyContent: 'center', overflow: 'hidden'}} >
-        <div style={style}>
-          <DailyRequirements totalNutrition={totalNutrition} />
-          <AddMeal
-            addFoodToMeal={addFoodToMeal}
-            foodItems={foodItems}
-            removeFoodItem={removeFoodItem}
-            postMeal={postMeal}
-          />
-          <h3 style={{marginBottom: 15}}>
-            Seach For Food
-          </h3>
-          <Input
-            searchForFood={searchForFood}
-            searchTerms={searchTerms}
-            updateSearchTerms={updateSearchTerms}
-          />
-          <Results
-            addFoodToMeal={addFoodToMeal}
-            getFoodNutrients={getFoodNutrients}
-            results={results}
-          />
-        </div>
+      <div className="flex-column" style={{maxWidth: 600}}>
+        <DailyRequirements totalNutrition={totalNutrition} />
+        <AddMeal
+          foodItems={foodItems}
+          removeFoodItem={this.removeFoodItem}
+          postMeal={this.postMeal}
+        />
+        <h3 className="margin-3-bottom margin-5-top">
+          Search For Food
+        </h3>
+        <Input
+          searchForFood={this.searchForFood}
+          searchTerms={searchTerms}
+          updateSearchTerms={this.updateSearchTerms}
+        />
+        <Results
+          addFoodToMeal={this.addFoodToMeal}
+          getFoodNutrients={this.getFoodNutrients}
+          results={results}
+        />
       </div>
     );
-  }
+  },
+
 });
 
 export default App;
