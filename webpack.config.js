@@ -9,19 +9,12 @@ var config = {
     publicPath: '/static/bundle/',
     filename: 'main.js'
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': '"production"'
-      }
-    })
-  ],
   module: {
     loaders: [
       {
         test: /js/,
         exclude: /node_modules/,
-        loaders: ['babel']
+        loaders: ['react-hot', 'babel']
       },
       {
         test: /\.sass$/,
@@ -48,6 +41,10 @@ var config = {
         loader: 'url?limit=10000&mimetype=image/svg+xml'
       }
     ]
+  },
+  devServer: {
+    contentBase: 'static',
+    historyApiFallback: true
   }
 };
 module.exports = config;
