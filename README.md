@@ -4,7 +4,6 @@
 
 #### To run:
 
-
     git clone git@github.com:dannyid/foodiot-ui.git;
     cd foodiot-ui;
     npm install;
