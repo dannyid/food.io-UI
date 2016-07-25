@@ -92,7 +92,7 @@ const Result  = React.createClass({
 
     return (
       <li onClick={this.handleClick} className={liClasses}>
-        <p>
+        <p className="padding-0">
           {long_desc}
         </p>
         {nutrients && isOpen ? (
