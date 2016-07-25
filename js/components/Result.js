@@ -14,6 +14,11 @@ const liClasses = classNames([
   'padding-2'
 ]);
 
+
+const stopPropagation = (e) => {
+  e.stopPropagation();
+};
+
 const renderNutrients = (nutrients) => {
   return nutrients
   .filter(({ units }) => units.indexOf('g') > -1)
@@ -66,14 +71,6 @@ const Result  = React.createClass({
     });
   },
 
-  handleInputClick(e) {
-    e.stopPropagation();
-  },
-
-  handleButtonClick(e) {
-    e.stopPropagation();
-  },
-
   handleAmountChange() {
     this.setState({
       amount: this.refs.amountInput.value
@@ -104,12 +101,12 @@ const Result  = React.createClass({
                 className="outline-none"
                 value={amount}
                 onChange={this.handleAmountChange}
-                onClick={this.handleInputClick}
+                onClick={stopPropagation}
                 type="text"
                 name="amount"
               />&nbsp;
               grams&nbsp;
-              <button type="submit" onClick={this.handleButtonClick}>
+              <button type="submit" onClick={stopPropagation}>
                 Add
               </button>
             </form>
