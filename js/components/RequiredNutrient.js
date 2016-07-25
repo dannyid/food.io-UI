@@ -22,7 +22,6 @@ const RequiredNutrient = ({
   return (
     <li className="flex-row justify-space-between position-relative">
       <span>
-        ({nutrNo})&nbsp;
         {name}
       </span>
       <span>

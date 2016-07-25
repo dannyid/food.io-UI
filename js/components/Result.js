@@ -53,7 +53,7 @@ const Result  = React.createClass({
       return nutrients.map(({ nutr_no, nutrdesc, nutr_val, units }) => {
         return (
           <li key={nutr_no}>
-            ({nutr_no}) {nutrdesc} - {nutr_val} {units}
+            {nutrdesc} - {nutr_val} {units}
           </li>
         );
       });
@@ -63,8 +63,7 @@ const Result  = React.createClass({
   render() {
     const {
       result: {
-        long_desc,
-        ndb_no
+        long_desc
       },
     } = this.props;
 
