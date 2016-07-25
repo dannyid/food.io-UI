@@ -65,7 +65,7 @@ const App  = React.createClass({
   },
 
   postMeal(meal) {
-    // POST request
+    // TODO: POST request
   },
 
   render() {
