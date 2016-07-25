@@ -56,7 +56,7 @@ const Result  = React.createClass({
         .map(({ nutr_no, nutrdesc, nutr_val, units }) => {
           if (units === 'µg') units = 'mcg';
 
-          const { val, unit: bestUnit } = convert(nutr_val).from(units).toBest();
+          let { val, unit: bestUnit } = convert(nutr_val).from(units).toBest();
 
           const roundedBestValue = Math.floor(val * 10) / 10;
 
