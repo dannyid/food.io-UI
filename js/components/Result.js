@@ -14,6 +14,31 @@ const liClasses = classNames([
   'padding-2'
 ]);
 
+const renderNutrients = (nutrients) => {
+  return nutrients
+  .filter(({ units }) => units.indexOf('g') > -1)
+  .map(({ nutr_no, nutrdesc, nutr_val, units }) => {
+    if (units === 'µg') units = 'mcg';
+
+    let { val, unit: bestUnit } = convert(nutr_val).from(units).toBest();
+
+    const roundedBestValue = Math.floor(val * 10) / 10;
+
+    if (bestUnit === 'mcg') bestUnit = 'µg';
+
+    return (
+      <li key={nutr_no} className="flex-row justify-space-between">
+        <span>
+          {nutrdesc}
+        </span>
+        <span>
+          {roundedBestValue} {bestUnit}
+        </span>
+      </li>
+    );
+  });
+};
+
 const Result  = React.createClass({
   getInitialState() {
     return {
@@ -53,34 +78,6 @@ const Result  = React.createClass({
     this.setState({
       amount: this.refs.amountInput.value
     });
-  },
-
-  renderNutrients() {
-    const { nutrients } = this.props.result;
-    if (nutrients && this.state.isOpen) {
-      return nutrients
-        .filter(({ units }) => units.indexOf('g') > -1)
-        .map(({ nutr_no, nutrdesc, nutr_val, units }) => {
-          if (units === 'µg') units = 'mcg';
-
-          let { val, unit: bestUnit } = convert(nutr_val).from(units).toBest();
-
-          const roundedBestValue = Math.floor(val * 10) / 10;
-
-          if (bestUnit === 'mcg') bestUnit = 'µg';
-
-          return (
-            <li key={nutr_no} className="flex-row justify-space-between">
-              <span>
-                {nutrdesc}
-              </span>
-              <span>
-                {roundedBestValue} {bestUnit}
-              </span>
-            </li>
-          );
-        });
-    }
   },
 
   render() {
