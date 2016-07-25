@@ -37,17 +37,21 @@ const calculateTotalNutrition = (foodItems) => {
 const renderRequirements = (foodItems) => {
   const totalNutrition = calculateTotalNutrition(foodItems);
   return dailyRequirements
-    .sort((a, b) => {
-      return (a.sortOrder || 1000000) - (b.sortOrder || 1000000);
-    })
+    // Lower sortOrder (from the "nutr_def" table) is sorted higher
+    .sort((a, b) => (a.sortOrder || 1000000) - (b.sortOrder || 1000000))
+    // Only return daily required nutrients that I could find in the nutrient database
+    // aka ones that have a "nutr_no" from the "nutr_def" table
     .filter(({ nutrNo }) => nutrNo)
-    .map((nutrient) => {
-      const key = nutrient.nutrNo || nutrient.name; // TODO: Use real IDs
+    .map((requiredNutrient) => {
+      // DV === daily value
+      const amountOfDV = (totalNutrition[requiredNutrient.nutrNo] || 0);
+
       return (
         <RequiredNutrient
-          key={key}
-          nutrient={nutrient}
-          amountOfDailyValue={totalNutrition[nutrient.nutrNo] || 0} />
+          key={requiredNutrient.nutrNo || requiredNutrient.name}
+          nutrient={requiredNutrient}
+          amountOfDV={amountOfDV}
+        />
       )
     });
 };
