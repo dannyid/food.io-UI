@@ -83,35 +83,41 @@ const Result  = React.createClass({
   render() {
     const {
       result: {
-        long_desc
+        long_desc,
+        nutrients
       },
     } = this.props;
+
+    const { amount, isOpen } = this.state;
 
     return (
       <li onClick={this.handleClick} className={liClasses}>
         <p>
           {long_desc}
         </p>
-        <br />
-        <form onSubmit={this.handleSubmit}>
-          Add&nbsp;
-          <input
-            ref="amountInput"
-            className="outline-none"
-            value={this.state.amount}
-            onChange={this.handleAmountChange}
-            type="text"
-            name="amount"
-          />&nbsp;
-          grams&nbsp;
-          <button type="submit" onClick={this.handleButtonClick}>
-            Add
-          </button>
-        </form>
-        <br />
-        <ul className="list-style-none padding-0">
-          {this.renderNutrients()}
-        </ul>
+        {nutrients && isOpen ? (
+          <div className="margin-4-top">
+            <form className="margin-4-bottom" onSubmit={this.handleSubmit}>
+              Add&nbsp;
+              <input
+                ref="amountInput"
+                className="outline-none"
+                value={amount}
+                onChange={this.handleAmountChange}
+                onClick={this.handleInputClick}
+                type="text"
+                name="amount"
+              />&nbsp;
+              grams&nbsp;
+              <button type="submit" onClick={this.handleButtonClick}>
+                Add
+              </button>
+            </form>
+            <ul className="list-style-none padding-0">
+              {renderNutrients(nutrients)}
+            </ul>
+          </div>
+        ) : null}
         <span>
           +
         </span>
