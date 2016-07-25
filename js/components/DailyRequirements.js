@@ -26,8 +26,8 @@ const calculateTotalNutrition = (foodItems) => {
       }
 
       const nutrValInMicrograms = convert(+nutr_val).from(units).to('mcg');
-      // Since nutrition data in the database is per 100 g, but we store all
-      // nutrient data in µg, we must divide the number of grams given by the user by 100
+      // Since nutrition data in the database is per 100g, we must divide the number of
+      // grams given by the user by 100 and multiply by the amount of nutrient in 100g
       totalNutrition[nutr_no] = Math.floor((totalNutrition[nutr_no] + (amount / 100 * nutrValInMicrograms)) * 10) / 10;
     });
     return totalNutrition;
