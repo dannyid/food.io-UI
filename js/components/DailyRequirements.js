@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import RequiredNutrient from './RequiredNutrient'
-import { UNITS, dailyRequirements } from '../modules/constants';
+import { dailyRequirements } from '../modules/constants';
 import convert from 'convert-units';
 
 const calculateTotalNutrition = (foodItems) => {
@@ -67,6 +67,10 @@ const DailyRequirements = ({ foodItems }) => {
       </ul>
     </div>
   );
+};
+
+DailyRequirements.propTypes = {
+  foodItems: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default DailyRequirements;
