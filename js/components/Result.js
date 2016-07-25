@@ -105,7 +105,7 @@ const Result  = React.createClass({
           </button>
         </form>
         <br />
-        <ul className="list-style-none">
+        <ul className="list-style-none padding-0">
           {this.renderNutrients()}
         </ul>
         <span>
