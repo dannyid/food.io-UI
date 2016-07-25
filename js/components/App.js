@@ -10,8 +10,7 @@ const App  = React.createClass({
     return {
       searchTerms: ['pizza'],
       results: [],
-      foodItems: [],
-      totalNutrition: new Map()
+      foodItems: []
     };
   },
 
@@ -63,17 +62,8 @@ const App  = React.createClass({
   },
 
   addFoodToMeal(foodItem) {
-    const newTotalNutrition = foodItem.foodItem.nutrients.reduce((totalNutrition, { nutr_no, nutr_val }) => {
-      const actualAmountOfNutrientInThisMuchFood = +nutr_val * (foodItem.amount / 100);
-
-      totalNutrition.set(nutr_no, (totalNutrition.get(nutr_no) || 0) + actualAmountOfNutrientInThisMuchFood);
-
-      return totalNutrition;
-    }, this.state.totalNutrition);
-
     this.setState({
-      foodItems: [...this.state.foodItems, foodItem],
-      totalNutrition: newTotalNutrition
+      foodItems: [...this.state.foodItems, foodItem]
     });
   },
 
@@ -93,21 +83,12 @@ const App  = React.createClass({
     const {
       searchTerms,
       results,
-      foodItems,
-      totalNutrition
+      foodItems
     } = this.state;
-
-    // const totalNutrition = foodItem.foodItem.nutrients.reduce((totalNutrition, { nutr_no, nutr_val }) => {
-    //   const actualAmountOfNutrientInThisMuchFood = +nutr_val * (foodItem.amount / 100);
-    //
-    //   totalNutrition.set(nutr_no, (totalNutrition.get(nutr_no) || 0) + actualAmountOfNutrientInThisMuchFood);
-    //
-    //   return totalNutrition;
-    // }, this.state.totalNutrition);
 
     return (
       <div className="flex-column" style={{maxWidth: 600}}>
-        <DailyRequirements totalNutrition={totalNutrition} />
+        <DailyRequirements foodItems={foodItems} />
         <AddMeal
           foodItems={foodItems}
           removeFoodItem={this.removeFoodItem}
