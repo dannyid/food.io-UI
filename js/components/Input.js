@@ -1,18 +1,28 @@
 import React from 'react';
 
 const Input = React.createClass({
+  getInitialState() {
+    return {
+      searchTerms: ['pizza']
+    }
+  },
+
+  componentWillMount() {
+    this.props.searchForFood(this.state.searchTerms);
+  },
+
   handleChange() {
-    this.props.updateSearchTerms(this.refs.input.value.split(' '));
+    this.setState({
+      searchTerms: this.refs.input.value.split(' ')
+    });
   },
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.searchForFood(this.props.searchTerms);
+    this.props.searchForFood(this.state.searchTerms);
   },
 
   render() {
-    const { searchTerms } = this.props;
-
     return (
       <form
         onSubmit={this.handleSubmit}
@@ -23,7 +33,7 @@ const Input = React.createClass({
           onChange={this.handleChange}
           className="h4 flex-row border-1 border-solid border-gray-lt border-radius-3 padding-2 outline-none"
           type="text"
-          value={searchTerms.join(' ')}
+          value={this.state.searchTerms.join(' ')}
         />
       </form>
     );

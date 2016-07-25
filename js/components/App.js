@@ -8,20 +8,9 @@ import { searchFood, fetchNutrients } from '../modules/ajax/api-requests';
 const App  = React.createClass({
   getInitialState() {
     return {
-      searchTerms: ['pizza'],
       results: [],
       foodItems: []
     };
-  },
-
-  componentWillMount() {
-    this.searchForFood(this.state.searchTerms);
-  },
-
-  updateSearchTerms(searchTerms) {
-    this.setState({
-      searchTerms
-    });
   },
 
   searchForFood(searchTerms) {
@@ -81,7 +70,6 @@ const App  = React.createClass({
 
   render() {
     const {
-      searchTerms,
       results,
       foodItems
     } = this.state;
@@ -97,11 +85,7 @@ const App  = React.createClass({
         <h3 className="margin-3-bottom margin-5-top">
           Search For Food
         </h3>
-        <Input
-          searchForFood={this.searchForFood}
-          searchTerms={searchTerms}
-          updateSearchTerms={this.updateSearchTerms}
-        />
+        <Input searchForFood={this.searchForFood} />
         <Results
           addFoodToMeal={this.addFoodToMeal}
           getFoodNutrients={this.getFoodNutrients}
