@@ -43,14 +43,13 @@ const renderRequirements = (foodItems) => {
     // aka ones that have a "nutr_no" from the "nutr_def" table
     .filter(({ nutrNo }) => nutrNo)
     .map((requiredNutrient) => {
-      // DV === daily value
-      const amountOfDV = (totalNutrition[requiredNutrient.nutrNo] || 0);
+      const amountInMcg = (totalNutrition[requiredNutrient.nutrNo] || 0);
 
       return (
         <RequiredNutrient
           key={requiredNutrient.nutrNo || requiredNutrient.name}
           nutrient={requiredNutrient}
-          amountOfDV={amountOfDV}
+          amountInMcg={amountInMcg}
         />
       )
     });
