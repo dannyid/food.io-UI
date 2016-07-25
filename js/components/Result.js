@@ -23,7 +23,10 @@ const Result  = React.createClass({
   },
 
   handleClick(e) {
-    this.props.getFoodNutrients(this.props.result.ndb_no);
+    if (!this.props.result.nutrients) {
+      this.props.getFoodNutrients(this.props.result.ndb_no);
+    }
+
     this.setState({
       isOpen: !this.state.isOpen
     });
