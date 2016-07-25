@@ -41,6 +41,10 @@ const Result  = React.createClass({
     });
   },
 
+  handleInputClick(e) {
+    e.stopPropagation();
+  },
+
   handleButtonClick(e) {
     e.stopPropagation();
   },
