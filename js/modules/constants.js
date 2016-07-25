@@ -1,12 +1,4 @@
-export const UNITS = {
-  milligrams: 'mg',
-  grams: 'g',
-  micrograms: 'µg',
-  kilocals: 'kcal',
-  kilojoules: 'kJ',
-  liters: 'L'
-};
-
+// ALL UNITS IN MICROGRAMS
 export const dailyRequirements = [
   {
     name: 'Vitamin A',
@@ -15,17 +7,15 @@ export const dailyRequirements = [
       recommended: 900,
       max: 3000
     },
-    units: UNITS.micrograms,
     sortOrder: 7420
   },
   {
     name: 'Vitamin C',
     nutrNo: '401',
     amount: {
-      recommended: 90,
-      max: 2000
+      recommended: 90 * 1000,
+      max: 2000 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6300
   },
   {
@@ -35,17 +25,15 @@ export const dailyRequirements = [
       recommended: 15,
       max: 100
     },
-    units: UNITS.micrograms,
     sortOrder: 8700
   },
   {
     name: 'Vitamin E',
     nutrNo: '323',
     amount: {
-      recommended: 15,
-      max: 1000
+      recommended: 15 * 1000,
+      max: 1000 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 7900
   },
   {
@@ -54,45 +42,40 @@ export const dailyRequirements = [
     amount: {
       recommended: 120
     },
-    units: UNITS.micrograms,
     sortOrder: 8800
   },
   {
     name: 'Thiamin',
     nutrNo: '404',
     amount: {
-      recommended: 1.2
+      recommended: 1.2 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6400
   },
   {
     name: 'Riboflavin',
     nutrNo: '405',
     amount: {
-      recommended: 1.3
+      recommended: 1.3 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6500
   },
   {
     name: 'Naicin',
     nutrNo: '406',
     amount: {
-      recommended: 16,
-      max: 35
+      recommended: 16 * 1000,
+      max: 35 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6600
   },
   {
     name: 'Vitamin B6',
     nutrNo: '415',
     amount: {
-      recommended: 1.3,
-      max: 100
+      recommended: 1.3 * 1000,
+      max: 100 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6800
   },
   {
@@ -102,7 +85,6 @@ export const dailyRequirements = [
       recommended: 400,
       max: 1000
     },
-    units: UNITS.micrograms,
     sortOrder: 6900
   },
   {
@@ -111,16 +93,14 @@ export const dailyRequirements = [
     amount: {
       recommended: 2.4
     },
-    units: UNITS.micrograms,
     sortOrder: 7300
   },
   {
     name: 'Pantothenic Acid',
     nutrNo: '410',
     amount: {
-      recommended: 5
+      recommended: 5 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6700
   },
   {
@@ -129,27 +109,24 @@ export const dailyRequirements = [
     amount: {
       recommended: 30
     },
-    units: UNITS.micrograms,
     sortOrder: null
   },
   {
     name: 'Choline',
     nutrNo: '421',
     amount: {
-      recommended: 550,
-      max: 3500
+      recommended: 550 * 1000,
+      max: 3500 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 7220
   },
   {
     name: 'Calcium',
     nutrNo: '301',
     amount: {
-      recommended: 1000,
-      max: 2500
+      recommended: 1000 * 1000,
+      max: 2500 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 5300
   },
   {
@@ -158,7 +135,6 @@ export const dailyRequirements = [
     amount: {
       recommended: 35
     },
-    units: UNITS.micrograms,
     sortOrder: null
   },
   {
@@ -168,17 +144,15 @@ export const dailyRequirements = [
       recommended: 900,
       max: 10000
     },
-    units: UNITS.micrograms,
     sortOrder: 6000
   },
   {
     name: 'Fluoride',
     nutrNo: '313',
     amount: {
-      recommended: 4,
-      max: 10
+      recommended: 4 * 1000,
+      max: 10 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6240
   },
   {
@@ -188,37 +162,33 @@ export const dailyRequirements = [
       recommended: 150,
       max: 1100
     },
-    units: UNITS.micrograms,
     sortOrder: null
   },
   {
     name: 'Iron',
     nutrNo: '303',
     amount: {
-      recommended: 8,
-      max: 45
+      recommended: 8 * 1000,
+      max: 45 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 5400
   },
   {
     name: 'Magnesium',
     nutrNo: '304',
     amount: {
-      recommended: 420,
-      max: 350 // WTF??? How can this be higher? Look at recommended intakes PDF
+      recommended: 420 * 1000,
+      max: 350 * 1000 // WTF??? How can this be higher? Look at recommended intakes PDF
     },
-    units: UNITS.milligrams,
     sortOrder: 5500
   },
   {
     name: 'Manganese',
     nutrNo: '315',
     amount: {
-      recommended: 2.3,
-      max: 11
+      recommended: 2.3 * 1000,
+      max: 11 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 6100
   },
   {
@@ -228,17 +198,15 @@ export const dailyRequirements = [
       recommended: 45,
       max: 2000
     },
-    units: UNITS.micrograms,
     sortOrder: null
   },
   {
     name: 'Phosphorus',
     nutrNo: '305',
     amount: {
-      recommended: 700,
-      max: 4000
+      recommended: 700 * 1000,
+      max: 4000 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 5600
   },
   {
@@ -248,96 +216,86 @@ export const dailyRequirements = [
       recommended: 55,
       max: 400
     },
-    units: UNITS.micrograms,
     sortOrder: 6200
   },
   {
     name: 'Zinc',
     nutrNo: '309',
     amount: {
-      recommended: 11,
-      max: 40
+      recommended: 11 * 1000,
+      max: 40 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: 5900
   },
   {
     name: 'Potassium',
     nutrNo: '306',
     amount: {
-      recommended: 4.7
+      recommended: 4.7 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 5700
   },
   {
     name: 'Sodium',
     nutrNo: '307',
     amount: {
-      recommended: 1.5,
-      max: 2.3
+      recommended: 1.5 * 1000 * 1000,
+      max: 2.3 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 5800
   },
   {
     name: 'Chloride',
     nutrNo: undefined,
     amount: {
-      recommended: 2.3,
-      max: 3.6
+      recommended: 2.3 * 1000 * 1000,
+      max: 3.6 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: null
   },
   {
     name: 'Water',
     nutrNo: '255',
     amount: {
-      recommended: 3.7
+      recommended: 3700 * 1000 * 1000
     },
-    units: UNITS.liters,
     sortOrder: 100
   },
   {
     name: 'Carbohydrate',
     nutrNo: '205',
     amount: {
-      min: 45,
-      recommended: 130, // ??? HOW
-      max: 65
+      min: 45 * 1000 * 1000,
+      recommended: 130 * 1000 * 1000, // ??? HOW
+      max: 65 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 1100
   },
   {
     name: 'Fiber',
     nutrNo: '291',
     amount: {
-      recommended: 38
+      recommended: 38 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 1200
   },
   {
     name: 'Fat',
     nutrNo: '204',
     amount: {
-      min: 20,
-      max: 35
+      min: 20 * 1000 * 1000,
+      max: 35 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 800
   },
   {
     name: 'Linoleic Acid',
     nutrNo: '675',
     amount: {
-      min: 5,
-      recommended: 17, // HOW??
-      max: 10
+      min: 5 * 1000 * 1000,
+      recommended: 17 * 1000 * 1000, // HOW??
+      max: 10 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 13200
   },
   {
@@ -345,48 +303,43 @@ export const dailyRequirements = [
     nutrNo: '851',
     amount: {
       min: 0.6,
-      recommended: 1.6, // HOW??
-      max: 1.2
+      recommended: 1.6 * 1000 * 1000, // HOW??
+      max: 1.2 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 14000
   },
   {
     name: 'Protein',
     nutrNo: '203',
     amount: {
-      min: 10,
-      recommended: 56, // HOW??
-      max: 35
+      min: 10 * 1000 * 1000,
+      recommended: 56 * 1000 * 1000, // HOW??
+      max: 35 * 1000 * 1000
     },
-    units: UNITS.grams,
     sortOrder: 600
   },
   {
     name: 'Boron',
     nutrNo: undefined,
     amount: {
-      max: 20
+      max: 20 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: null
   },
   {
     name: 'Nickel',
     nutrNo: undefined,
     amount: {
-      max: 1
+      max: 1 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: null
   },
   {
     name: 'Vanadium',
     nutrNo: undefined,
     amount: {
-      max: 1.8
+      max: 1.8 * 1000
     },
-    units: UNITS.milligrams,
     sortOrder: null
   }
 ];

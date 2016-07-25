@@ -48,26 +48,12 @@ const Result  = React.createClass({
   },
 
   renderNutrients() {
-    const {nutrients} = this.props.result;
+    const { nutrients } = this.props.result;
     if (nutrients && this.state.isOpen) {
-      return nutrients.map(n => {
-        let { nutr_no, nutrdesc, nutr_val, units } = n;
-
-        // convert to grams
-        // switch(units) {
-        //   case 'µg':
-        //     nutr_val = nutr_val / 1000000;
-        //     units = 'g';
-        //     break;
-        //   case 'mg':
-        //     nutr_val = nutr_val / 1000;
-        //     units = 'g';
-        //     break;
-        // }
-
+      return nutrients.map(({ nutr_no, nutrdesc, nutr_val, units }) => {
         return (
           <li key={nutr_no}>
-            {nutrdesc} - {nutr_val} {units}
+            ({nutr_no}) {nutrdesc} - {nutr_val} {units}
           </li>
         );
       });
@@ -104,7 +90,7 @@ const Result  = React.createClass({
           </button>
         </form>
         <br />
-        <ul>
+        <ul className="list-style-none">
           {this.renderNutrients()}
         </ul>
         <span>
