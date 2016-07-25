@@ -1,21 +1,28 @@
 import React, { PropTypes } from 'react';
+import convert from 'convert-units';
 
 const RequiredNutrient = ({
-  amountOfDailyValue,
+  amountOfDV,
   nutrient: {
     name,
+    nutrNo,
     amount: {
       recommended,
       min,
       max
-      },
-    units
+    }
   }
 }) => {
-  const dailyValue = recommended || (max - min) / 2 || 0; // TODO: Fix this math
+  const recommendedValueInMicrograms = recommended || (max - min) / 2 || 0;
+  let { val, unit } = convert(recommendedValueInMicrograms).from('mcg').toBest(); // TODO: Fix this math
+  val = Math.round(val * 10) / 10;
+  if (unit === 'mcg') unit = 'µg';
+
+  const percentageOfDV = amountOfDV / recommendedValueInMicrograms * 100;
   return (
     <li className="flex-row justify-space-between position-relative">
       <span>
+        ({nutrNo})&nbsp;
         {name}
       </span>
       <span>
@@ -23,25 +30,25 @@ const RequiredNutrient = ({
       </span>
       <span className="flex-row justify-center">
         <span>
-          {dailyValue}
+          {val}
         </span>
         <span>
           &nbsp;
         </span>
         <span>
-          {units}
+          {unit}
         </span>
       </span>
       <div
         className="position-absolute position-left position-top opacity-1 bg-black height-100"
-        style={{width: `${amountOfDailyValue}%`}} />
+        style={{width: `${percentageOfDV}%`}} />
     </li>
   );
 };
 
 RequiredNutrient.propTypes = {
   nutrient: PropTypes.object.isRequired,
-  amountOfDailyValue: PropTypes.number.isRequired
+  amountOfDV: PropTypes.number.isRequired
 };
 
 export default RequiredNutrient;
