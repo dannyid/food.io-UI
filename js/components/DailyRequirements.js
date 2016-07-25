@@ -1,77 +1,58 @@
 import React from 'react';
+import RequiredNutrient from './RequiredNutrient'
 import { UNITS, dailyRequirements } from '../modules/constants';
 import convert from 'convert-units';
 
-const DailyRequirements = React.createClass({
-  renderNutrientAmount(nutrNo, amount, units) {
-    const { totalNutrition } = this.props;
-    if (totalNutrition.size) {
-      let amountOfDailyValue = (totalNutrition.get(nutrNo) || 0) / amount;
-      amountOfDailyValue = amountOfDailyValue > 100 ? 100 : amountOfDailyValue;
-      // console.log(nutrNo, amount, units, totalNutrition.get(nutrNo));
-      return (
-        <div
-          className="position-absolute position-left position-top opacity-1 bg-black height-100"
-          style={{width: `${amountOfDailyValue}%`}} />
-      );
-    }
-  },
-
-  renderRequirements() {
-    return dailyRequirements
-      .sort((a, b) => {
-        return (a.sortOrder || 1000000) - (b.sortOrder || 1000000);
-      })
-      .filter(({ nutrNo }) => nutrNo)
-      .map(({
-        nutrNo,
-        name,
-        amount: {
-          recommended,
-          min,
-          max
-        },
-        units
-      }) => {
-        const amount = recommended || (max - min) / 2 || 0;
-        const key = nutrNo || name; // TODO: Use real IDs
-        return (
-          <li key={key} className="flex-row justify-space-between position-relative">
-            <span>
-              {name}
-            </span>
-            <span>
-
-            </span>
-            <span className="flex-row justify-center">
-              <span>
-                {amount}
-              </span>
-              <span>
-                &nbsp;
-              </span>
-              <span>
-                {units}
-              </span>
-            </span>
-            {this.renderNutrientAmount(nutrNo, amount, units)}
-          </li>
-        );
+const calculateTotalNutrition = (foodItems) => {
+  return foodItems
+    .reduce((
+      totalNutrition,
+      {
+        amount,
+        foodItem: {
+          nutrients
+        }
+      }
+    ) => {
+      nutrients.forEach(({ nutr_no, nutrdesc, nutr_val, units }) => {
+        if (typeof totalNutrition[nutr_no] === 'undefined') {
+          totalNutrition[nutr_no] = 0;
+        }
+        totalNutrition[nutr_no] += (amount * parseInt(nutr_val, 10));
       });
-  },
+      return totalNutrition;
+    }, {});
+};
 
-  render() {
-    return (
-      <div className="daily-requirements">
-        <h3>
-          Recommended Daily Intakes
-        </h3>
-        <ul className="flex-column list-style-none padding-0">
-          {this.renderRequirements()}
-        </ul>
-      </div>
-    );
-  }
-});
+const renderRequirements = (foodItems) => {
+  const totalNutrition = calculateTotalNutrition(foodItems);
+  return dailyRequirements
+    .sort((a, b) => {
+      return (a.sortOrder || 1000000) - (b.sortOrder || 1000000);
+    })
+    .filter(({ nutrNo }) => nutrNo)
+    .map((nutrient) => {
+      const key = nutrient.nutrNo || nutrient.name; // TODO: Use real IDs
+      return (
+        <RequiredNutrient
+          key={key}
+          nutrient={nutrient}
+          amountOfDailyValue={totalNutrition[nutrient.nutrNo] || 0} />
+      )
+    });
+};
+
+const DailyRequirements = ({ foodItems }) => {
+  return (
+    <div className="daily-requirements">
+      <h3>
+        Recommended Daily Intakes
+      </h3>
+      <ul className="flex-column list-style-none padding-0">
+        {renderRequirements(foodItems)}
+      </ul>
+    </div>
+  );
+};
 
 export default DailyRequirements;
