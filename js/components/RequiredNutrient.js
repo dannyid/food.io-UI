@@ -14,7 +14,7 @@ const RequiredNutrient = (
     }
   }
 ) => {
-  const recommendedValueInMcg = recommended || (max - min) / 2 || 0; // TODO: Fix this math
+  const recommendedValueInMcg = recommended || (max + min) / 2 || 0; // TODO: Fix this math
   let { val, unit: bestUnit } = convert(recommendedValueInMcg).from('mcg').toBest();
   const roundedBestValue = Math.round(val * 10) / 10;
   if (bestUnit === 'mcg') bestUnit = 'µg';
