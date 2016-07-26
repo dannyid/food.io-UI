@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import RequiredNutrient from './RequiredNutrient'
 import { dailyRequirements } from '../modules/constants';
 import convert from 'convert-units';
@@ -55,18 +55,28 @@ const renderRequirements = (foodItems) => {
     });
 };
 
-const DailyRequirements = ({ foodItems }) => {
-  return (
-    <div className="daily-requirements">
-      <h3>
-        Recommended Daily Intakes
-      </h3>
-      <ul className="flex-column list-style-none padding-0">
-        {renderRequirements(foodItems)}
-      </ul>
-    </div>
-  );
-};
+class DailyRequirements extends Component {
+  constructor(props, context) {
+    super(props);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.foodItems.length !== nextProps.foodItems.length;
+  }
+
+  render() {
+    return (
+      <div className="daily-requirements">
+        <h3>
+          Recommended Daily Intakes
+        </h3>
+        <ul className="flex-column list-style-none padding-0">
+          {renderRequirements(this.props.foodItems)}
+        </ul>
+      </div>
+    );
+  }
+}
 
 DailyRequirements.propTypes = {
   foodItems: PropTypes.arrayOf(PropTypes.object).isRequired
